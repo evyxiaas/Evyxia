@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>⋆˙⟡ HAPPY BIRTHDAY CJ! ⋆˙⟡</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-image: url('pi.jpg');
+      font-family: "Lucida Handwriting", cursive;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    .container {
+      position: relative;
+      width: 1000px;
+      height: 320px;
+    }
+
+    .envelope {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 350px;
+      background: rgb(192, 213, 255);
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 2;
+      transition: opacity 0.6s ease;
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 50%;
+      background: #8db5ff;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform 0.8s ease;
+      z-index: 3;
+    }
+
+    .white-box {
+      background-image: url(Happy\ Sweet\ Sixteen.png);
+      margin-left: 50%;
+      margin-top: -45px;
+      transform: translateX(-50%) scale(0.8);
+      width: 920px; /* increased by 100px */
+      height: 550px; /* increased by 100px */
+      border-radius: 0px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      background-size:cover;
+      background-position:left;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      animation: popOut 1s ease forwards;
+    }
+
+    .gre {
+      color: rgb(112, 124, 216);
+      text-align: center;
+      margin-bottom: 390px;
+      font-size: 32px;
+
+    }
+
+
+
+
+    .open{
+color: white;
+background-color: rgb(192, 203, 255);
+padding-left: 9px;
+padding-right: 9px;
+padding-top: 1px;
+padding-bottom: 1px;
+font-size: 20px;
+font-family: 'Gill Sans';
+border-radius: 10px;
+border-width: 3px;
+border-color: white;
+transition: 0.15s;
+}
+
+body {
+  cursor: url('pink-removebg-preview.png'), pointer;
+}
+
+.no{
+color: rgb(192, 210, 255);
+background-color: white;
+padding-left: 9px;
+padding-right: 9px;
+padding-top: 1px;
+padding-bottom: 1px;
+font-size: 20px;
+font-family: 'Gill Sans';
+border-radius: 10px;
+border-width: 3px;
+border-color: rgba(192, 195, 255, 0.637);
+margin-left: 10px;
+transition: 0.15s;
+}
+
+
+.open:hover{
+  font-size: 23px;
+  cursor: grabbing;
+}
+
+.no:hover{
+  font-size: 23px;
+  cursor: grabbing;
+}
+
+
+
+
+    @keyframes popOut {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.5) translateY(100px);
+      }
+      60% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.05) translateY(-10px);
+      }
+      100% {
+        transform: translateX(-50%) scale(1) translateY(0);
+      }
+    }
+
+    .footer-text {
+      margin-top: 50px;
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: rgb(112, 155, 216);
+    }
+
+
+.pui{
+  background-color: rgb(60, 99, 190);
+}
+
+
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999; 
+}
+
+
+.star{
+color: white;
+background-color: #c2ccff;
+padding-left: 9px;
+padding-right: 9px;
+padding-top: 1px;
+padding-bottom: 1px;
+font-size: 39px;
+margin-top: 40%;
+margin-right: 8.1%;
+margin-left: 42.5%;
+font-family: 'Gill Sans';
+border-radius: 10px;
+border-width: 3px;
+border-color: white;
+transition: 0.15s;
+}
+
+.star:hover{
+  font-size: 43px;
+  cursor: grabbing;
+}
+
+
+
+.stars:hover, .stars2:hover, .stars3:hover{
+  font-size: 20px;
+  cursor: grabbing;
+}
+
+.stars{ 
+color: #b6c7ff;
+background-color: white;
+padding-left: 9px;
+padding-right: 9px;
+padding-top: 1px;
+text-align: center;
+padding-bottom: 1px;
+font-size: 19px;
+font-family: 'Gill Sans';
+border-radius: 10px;
+border-width: 3px;
+margin-left: 77px;
+border-color: rgba(192, 205, 255, 0.637);
+display: flex;
+margin-top: 8px;
+text-align: center;
+transition: 0.15s;
+width:154px;
+}
+
+.stars2{ 
+color: #bab6ff;
+background-color: white;
+padding-left: 9px;
+padding-right: 9px;
+padding-top: 1px;
+padding-bottom: 1px;
+font-size: 19px;
+font-family: 'Gill Sans';
+border-radius: 10px;
+text-align: center;
+border-width: 3px;
+margin-top: -33.5px;
+margin-left: 243px;
+border-color: rgba(192, 205, 255, 0.637);
+display: flex;
+text-align: center;
+width:123px;
+transition: 0.15s;
+}
+
+.stars3{ 
+color: #b6c6ff;
+background-color: white;
+padding-left: 9px;
+padding-right: 9px;
+padding-top: 1px;
+text-align: center;
+padding-bottom: 1px;
+font-size: 19px;
+font-family: 'Gill Sans';
+border-radius: 10px;
+border-width: 3px;
+margin-top: -33.5px;
+margin-left: 378px;
+border-color: rgba(192, 230, 255, 0.637);
+display: flex;
+text-align: center;
+transition: 0.15s;
+width:150px;
+}
+
+.popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin-top: -49.5px;
+margin-left: -155px;
+border-color: rgba(192, 205, 255, 0.637);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+/* Shared animation */
+@keyframes popupFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(30px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-10px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Default popup content box */
+.popup-content {
+  background-color: white;
+  padding: 36px;
+  border-radius: 15px;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.32);
+  font-family: 'Gill Sans';
+  color: rgb(112, 157, 216);
+  font-size: 20px;
+  max-width: 860px;   /* bigger start popup */
+  width: 90%;
+  text-align: center;
+  animation: popupFade 0.6s ease forwards;
+  position: absolute;
+}
+.popup-start-content {
+  max-width: 700px;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.popup-title {
+  font-size: 26px;
+  margin-bottom: 15px;
+  color: #6996ff;
+  font-family: 'Lucida Handwriting', cursive;
+}
+
+.popup-desc {
+  font-size: 18px;
+  color: #6996ff;
+  font-family: 'Gill Sans';
+  line-height: 1.5;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6996ff;
+}
+
+.popup-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+
+
+.cattt {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100.2vw;
+  height: 100vh;
+  margin-top: -84px;
+  margin-left: -80px;
+  background-color: rgba(199, 192, 255, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+/* Shared animation */
+@keyframes popupFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(30px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-10px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Default popup content box */
+.cat-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-family: 'Gill Sans';
+  color: rgb(129, 112, 216);
+  font-size: 20px;
+  max-width: 500px;
+  width: 80%;
+  text-align: center;
+  animation: popupFade 0.6s ease forwards;
+  position: absolute;
+}
+.popup-start-content {
+  max-width: 700px;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.cat-title {
+  font-size: 26px;
+  margin-bottom: 15px;
+  color: #7669ff;
+  font-family: 'Lucida Handwriting', cursive;
+}
+
+.cat-desc {
+  font-size: 18px;
+  color: #6996ff;
+  font-family: 'Gill Sans';
+  line-height: 1.5;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6996ff;
+}
+
+
+.popo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100.2vw;
+  height: 100vh;
+  margin-top: -2px;
+  margin-left: -1px;
+  background-color: rgba(199, 192, 255, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+/* Shared animation */
+@keyframes popoFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(30px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-10px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+.popo-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-family: 'Gill Sans';
+  color: rgb(112, 112, 216);
+  font-size: 20px;
+  max-width: 500px;
+  width: 80%;
+  text-align: center;
+  animation: popupFade 0.6s ease forwards;
+  position: absolute;
+}
+.popo-start-content {
+  max-width: 700px;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.popo-title {
+  font-size: 26px;
+  margin-bottom: 15px;
+  color: #6996ff;
+  font-family: 'Lucida Handwriting', cursive;
+}
+
+.popo-desc {
+  font-size: 18px;
+  color: rgb(117, 112, 216);
+  font-family: 'Gill Sans';
+  line-height: 1.5;
+}
+
+.popup-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 17px;
+  font-size: 30px;
+  margin-top: 20px;}
+
+  .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: rgb(133, 112, 216);
+}
+
+
+.catt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 192, 203, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.catt-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-family: 'Gill Sans';
+  color: palevioletred;
+  font-size: 20px;
+  max-width: 500px;
+  width: 80%;
+  text-align: center;
+  position: relative;
+  animation: popupFade 0.6s ease forwards;
+}
+
+/* NEW: naven popup styles */
+    .naven {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 192, 203, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100000;
+    }
+
+    .naven-content {
+      background-color: white;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.28);
+      font-family: 'Gill Sans';
+      color: palevioletred;
+      max-width: 920px;    /* increased popup width */
+      width: 92%;
+      text-align: center;
+      position: relative;
+      animation: popupFade 0.5s ease forwards;
+     /* allow popup content to scroll when tall (enables scrolling during letter) */
+     max-height: calc(100vh - 80px);
+     overflow: auto;
+     -webkit-overflow-scrolling: touch;
+    }
+    
+    .naven-title {
+      font-family: 'Lucida Handwriting', cursive;
+      color: #ff69b4;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .naven-desc {
+      color: palevioletred;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .naven .close-btn {
+      top: 10px;
+      right: 12px;
+      color: palevioletred;
+    }
+
+    /* NEW: wish photo popup styles */
+    .wish-photo-container {
+      position: relative;
+      overflow: visible; /* allow overlay to expand beyond image if needed */
+    }
+
+    /* let image scale naturally so overlay isn't constrained/cut */
+    .wish-photo-container img {
+      width: 100%;
+      border-radius: 10px;
+      display: block;
+      height: auto;
+      max-height: 70vh; /* prevent huge images but allow overlay room */
+      object-fit: cover;
+    }
+
+    /* centered, multiline overlay that won't be clipped */
+    .wish-photo-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 20px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.32);
+      padding: 12px 16px;
+      border-radius: 12px;
+      width: 88%;
+      max-width: 92%;
+      box-sizing: border-box;
+      text-align: center;
+      white-space: pre-wrap;    /* preserve line breaks */
+      word-break: break-word;
+      overflow: visible;        /* don't cut off content */
+      z-index: 5;
+      line-height: 1.3;
+    }
+
+    .wish-photo-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 20px;
+      color: palevioletred;
+      background: white;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    /* NEW: cake popup styles (replaced to match provided illustration; no images used) */
+    .cake-popup .naven-content { max-width:760px; padding:28px; }
+    .cake-popup { display: none; }
+    .cake-img {
+      display: block;
+      margin: 8px auto 0;
+      width: 200px;       /* small image */
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.28);
+      object-fit: contain;
+    }
+
+    /* letter popup styles */
+    .letter-body {
+      font-family: "Lucida Handwriting", cursive;
+      font-size: 16px; /* made a little smaller */
+      line-height: 1.9;
+      color: #c2185b;                /* palevioletred-ish */
+      max-width: 760px;
+      margin: 12px auto;
+      text-align: left;
+      white-space: pre-wrap;
+      letter-spacing: 0.2px;
+      padding: 6px 10px;
+     /* allow the letter itself to scroll if it overflows the popup */
+     max-height: calc(100vh - 260px);
+     overflow: auto;
+     -webkit-overflow-scrolling: touch;
+    }
+    /* image popup for letter: make it a small floating mini-popup */
+    .letter-image-popup {
+      /* position as a floating mini popup inside the naven-content */
+      position: absolute;
+      top: 16px;                 /* same position, slightly adjusted */
+      right: 18px;               /* same position, slightly adjusted */
+      width: 150px;              /* made a little smaller */
+      max-width: 32%;
+      margin-right: 20px;
+      background: rgba(255,255,255,0.98);
+      padding: 6px;              /* reduced padding */
+      border-radius: 10px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+      transition: opacity 220ms ease, transform 220ms ease;
+      opacity: 0;
+      transform: translateY(-6px) scale(0.96);
+      pointer-events: none;
+    }
+    .letter-image-popup.show {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .letter-image-popup img {
+      width: 100%;
+      height: auto;
+      max-height: 36vh;   /* slightly smaller max height */
+      border-radius: 6px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+  
+  <div class="container">
+    <div class="envelope" id="envelope" onclick="openEnvelope()">
+      <div class="flap"></div>
+    </div>
+
+
+<div id="noPopup" class="cattt">
+  <div class="cat-content">
+    <span class="close-btn" onclick="closeNoPopup()">×</span>
+    <h2 class="cat-title">♡⊹ Wait... really? ⊹♡ <br>♡⊹  😭😭😞😢💔💔 ⊹♡</h2>
+    <p class="cat-desc">You sure you don’t wanna open the envelope??</p>
+    <img src="Cute Cat pookie 🎀.jpg" alt="Sad cat" style="width: 58%; border-radius: 10px; margin-top: 15px;" />
+    <p class="cat-desc">ME RIGHT NOW IF YOU DONT<br> 😭😭😞😢💔💔</p>
+  </div>
+</div>
+
+
+
+
+<div id="messageBox" class="white-box">
+  <div id="popup" class="popup">
+    <div class="popup-content" id="popupContent">
+      <span class="close-btn" onclick="closePopup()">×</span>
+      <h2 id="popupTitle" class="popup-title">♡⊹ Title ⊹♡</h2>
+      <p id="popupDesc" class="popup-desc">Description goes here!</p>
+    </div>
+  </div>
+
+  <button class="star"> ₊˚⊹♡ Start ₊˚⊹♡</button>
+  <button class="stars"> ♡⊹ Settings ⊹♡</button>
+  <button class="stars2"> ♡⊹ Info ⊹♡</button>
+  <button class="stars3"> ♡⊹ Contact ⊹♡</button>
+</div>
+  </div>
+
+  <div id="startPopup" class="popo">
+  <div class="popo-content">
+    <span class="close-btn" onclick="closeStartPopup()">×</span>
+    <h2 class="popo-title">♡⊹ Navigation ⊹♡</h2>
+    <p class="popo-desc"> Lets open this Birthday website! <br> .ﾟ *ꕤ*.ﾟ Choose One >⩊< .ﾟ *ꕤ*.ﾟ </p>
+ <div class="popup-buttons">
+      <button class="open"> ✨ Cake ✨ </button>
+      <button class="open"> 🧸 Wishes 🧸 </button>
+      <button class="open"> 🌸 Letter 🌸 </button>
+      <button class="open"> 🎁 Gift 🎁 </button>
+    </div>
+  </div>
+</div>
+
+  <p class="footer-text">
+    UuUUuU A letter! Wanna open it :3?
+  </p>
+
+  <div style="text-align: center;">
+  <button class="open" onclick="openEnvelope()"> ⋆°.⋆♡ OPEN ♡⋆.°⋆</button>
+  <button class="no" onclick="handleNo()">˙◠˙ No ˙◠˙</button>
+</div>
+
+<!-- SETTINGS POPUP -->
+<div id="settingsPopup" class="catt">
+  <div class="catt-content">
+    <span class="close-btn" onclick="closePopup('settingsPopup')">×</span>
+    <h2 class="cat-title">♡⊹ Settings ⊹♡</h2>
+    <p class="cat-desc">Settings are locked because you're already ✧perfect✧. No tweaks needed!</p>
+    <img src="cute.png" alt="Sad cat" style="width: 39%; border-radius: 10px; margin-top: 15px;" />
+    <p class="cat-desc">≽(•⩊ •マ≼</p>
+  </div>
+</div>
+
+<!-- INFO POPUP -->
+<div id="infoPopup" class="catt">
+  <div class="catt-content">
+    <span class="close-btn" onclick="closePopup('infoPopup')">×</span>
+    <h2 class="cat-title">♡⊹ Info ⊹♡</h2>
+    <p class="cat-desc">You're loved, You're Smart, Your ma Bestie! TODAY is all about YOOOOOUUUUU!!</p>
+    <img src="download.jpg" alt="Sad cat" style="width: 58%; border-radius: 10px; margin-top: 15px;" />
+    <p class="cat-desc">≽(•⩊ •マ≼</p>
+  </div>
+</div>
+
+<!-- CONTACT POPUP -->
+<div id="contactPopup" class="catt">
+  <div class="catt-content">
+    <span class="close-btn" onclick="closePopup('contactPopup')">×</span>
+    <h2 class="cat-title">♡⊹ Contact ⊹♡</h2>
+    <p class="cat-desc">Just scream 'BESTIE' and I’ll appear!</p>
+    <img src="fwend.jpg" alt="Sad cat" style="width: 58%; border-radius: 10px; margin-top: 15px;" />
+    <p class="cat-desc">≽(•⩊ •マ≼</p>
+  </div>
+</div>
+
+
+<!-- NEW: naven popup (shown when Cake / Wishes / Letter / Gift clicked) -->
+<div id="navenPopup" class="naven" aria-hidden="true">
+  <div class="naven-content">
+    <span class="close-btn" onclick="closeNavenPopup()">×</span>
+    <h2 id="navenTitle" class="naven-title">♡⊹ Something ♡⊹</h2>
+    <p id="navenDesc" class="naven-desc">Popup content</p>
+
+    <!-- NEW: wish form (hidden by default, shown when Wishes clicked) -->
+    <div id="wishForm" style="display:none; margin-top:12px;">
+      <textarea id="wishText" placeholder="Type your wish here..." rows="4" style="width:80%; font-size: 19px; padding:8px; border-radius:8px; border:1px solid rgba(255,192,203,0.6); font-family:'Gill Sans'; resize: none;"></textarea>
+      <div style="margin-top:10px; text-align:center;">
+        <button id="wishSubmit" class="open" onclick="blowCandle()" style="background:pink; color:white; border-radius:8px; padding:8px 16px; font-family:'Gill Sans'; border:none; cursor:pointer;">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEW: popup that shows the photo after submitting a wish -->
+<div id="wishPhotoPopup" class="naven" aria-hidden="true" style="display:none; opacity:0; transition: opacity 0.6s ease;">
+  <div class="naven-content" style="max-width:640px; padding:12px 16px;">
+    <div class="wish-photo-container">
+      <div class="wish-photo-close" onclick="closeWishPhotoPopup()">×</div>
+      <!-- set image file to the requested filename -->
+      <img id="wishPhotoImg" src="— meowl_.jpg" alt="Wish photo" style="display:none;" />
+       <div id="wishOverlayText" class="wish-photo-overlay"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEW: cake popup markup (shown when Cake clicked) -->
+<div id="cakePopup" class="naven cake-popup" aria-hidden="true" style="display:none;">
+  <div class="naven-content">
+    <span class="close-btn" onclick="closeCakePopup()">×</span>
+    <h2 class="naven-title">✨ Cake ✨</h2>
+    <p class="naven-desc">Make a wish — blow the candle!</p>
+    <!-- replaced CSS cake with an image: start image is cake1.png -->
+    <img id="cakeImg" class="cake-img" src="cake1.png" alt="Decorative cake" />
+    <!-- if you want a candle-blow effect later, use a separate flame overlay or animated GIF -->
+    <div style="margin-top:16px;">
+      <button id="blowBtn" class="open" onclick="blowCandle()">Blow</button>
+    </div>
+   </div>
+ </div>
+ <!-- end cake popup -->
+
+
+
+<div id="giftPopup" class="naven gift-popup" aria-hidden="true" style="display:none;">
+  <div class="naven-content">
+    <span class="close-btn" onclick="closeGiftPopup()">×</span>
+    <h2 class="naven-title"> 🎁 Gift 🎁</h2>
+    <p class="naven-desc">Hope you like your gift!</p>
+    <!-- replaced CSS cake with an image: start image is cake1.png -->
+    <img id="cakeImg" class="cake-img" src="fwend.jpg" alt="Decorative cake" />
+    <!-- if you want a candle-blow effect later, use a separate flame overlay or animated GIF -->
+    <div style="margin-top:16px;">
+      <button id="blowBtn" class="open" onclick="blowCandle()">ฅ^>⩊<^ฅ</button>
+    </div>
+   </div>
+ </div>
+
+
+ <!-- LETTER POPUP (typewriter reveal) -->
+  <div id="letterPopup" class="naven" aria-hidden="true" style="display:none;">
+     <div class="naven-content" style="max-width:760px; padding:36px;">
+       <span class="close-btn" onclick="closeLetterPopup()">×</span>
+       <h2 class="naven-title">♡⊹ A Letter for Rhian ⊹♡</h2>
+       <div id="letterBody" class="letter-body" aria-live="polite" ></div>
+      <!-- image popup used while letter is visible; filenames can be adjusted in JS -->
+      <div id="letterImagePopup" class="letter-image-popup" aria-hidden="true">
+        <img id="letterImageElem" src="" alt="decoration" />
+      </div>
+     </div>
+   </div>
+
+<script>
+
+  function handleNo() {
+  document.getElementById("noPopup").style.display = "flex";
+}
+  const canvas = document.getElementById("confetti-canvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let confetti = [];
+  let animationFrame;
+  let creationStart;
+
+  function createConfettiBurst() {
+    creationStart = Date.now();
+    function generateConfetti() {
+      if (Date.now() - creationStart < 1500) {
+        for (let i = 0; i < 10; i++) {
+          confetti.push({
+            x: Math.random() * canvas.width,
+            y: -10,
+            r: Math.random() * 6 + 4,
+            d: Math.random() * 10 + 5,
+            color: pastelColors[Math.floor(Math.random() * pastelColors.length)],
+            tilt: Math.random() * 10 - 5,
+            tiltAngle: 0,
+            tiltAngleIncrement: Math.random() * 0.07 + 0.05,
+          });
+        }
+        setTimeout(generateConfetti, 100); // keep adding for 1.5s
+      }
+    }
+    generateConfetti();
+    animateConfetti();
+  }
+
+  const pastelColors = [
+    "rgba(255,182,193,0.9)", // light pink
+    "rgba(255,105,180,0.9)", // hot pink
+    "rgba(255,255,153,0.9)", // soft yellow
+    "rgba(255,239,184,0.9)", // pale yellow
+    "rgba(173,216,230,0.9)", // light blue
+    "rgba(135,206,250,0.9)"  // sky blue
+  ];
+
+  function animateConfetti() {
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confetti.forEach((c, i) => {
+        ctx.beginPath();
+        ctx.lineWidth = c.r;
+        ctx.strokeStyle = c.color;
+        ctx.moveTo(c.x + c.tilt, c.y);
+        ctx.lineTo(c.x, c.y + c.tilt + c.r);
+        ctx.stroke();
+
+        c.tiltAngle += c.tiltAngleIncrement;
+        c.y += (c.d / 2);
+        c.x += Math.sin(c.tiltAngle) * 2;
+        c.tilt = Math.sin(c.tiltAngle) * 15;
+      });
+
+      confetti = confetti.filter(c => c.y < canvas.height + 20);
+      if (confetti.length > 0) {
+        animationFrame = requestAnimationFrame(draw);
+      } else {
+        cancelAnimationFrame(animationFrame);
+      }
+    }
+    draw();
+  }
+
+  function openEnvelope() {
+    const envelope = document.getElementById('envelope');
+    const flap = envelope.querySelector('.flap');
+    const messageBox = document.getElementById('messageBox');
+  
+
+    flap.style.transform = 'rotateX(-180deg)';
+    setTimeout(() => {
+      envelope.style.opacity = '0';
+      envelope.style.pointerEvents = 'none';
+      messageBox.style.display = 'flex';
+      createConfettiBurst(); // 🎉 Trigger confetti burst
+    }, 800);
+  }
+
+  function handleNo() {
+    alert("No button clicked!");
+  }
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+function showPopup(title, desc) {
+  document.getElementById("popupTitle").textContent = title;
+  document.getElementById("popupDesc").textContent = desc;
+  document.getElementById("popup").style.display = "flex";
+}
+
+
+function closeStartPopup() {
+  document.getElementById("startPopup").style.display = "none";
+}
+
+document.querySelector(".star").onclick = () => {
+  document.getElementById("startPopup").style.display = "flex";
+
+};
+
+function closePopup(id) {
+  document.getElementById(id).style.display = "none";
+}
+
+document.querySelector(".stars").onclick = () => {
+  document.getElementById("settingsPopup").style.display = "flex";
+};
+
+document.querySelector(".stars2").onclick = () => {
+  document.getElementById("infoPopup").style.display = "flex";
+};
+
+document.querySelector(".stars3").onclick = () => {
+  document.getElementById("contactPopup").style.display = "flex";
+};
+
+  
+
+  function handleNo() {
+  document.getElementById("noPopup").style.display = "flex";
+}
+
+function closeNoPopup() {
+  document.getElementById("noPopup").style.display = "none";
+}
+
+function closeStartPopup() {
+  document.getElementById("startPopup").style.display = "none";
+}
+
+document.querySelector(".star").onclick = () => {
+  document.getElementById("startPopup").style.display = "flex";
+};
+
+
+// NEW: show naven popup when one of the startPopup buttons is clicked
+  (function () {
+    function getPopupTextFor(label) {
+      const t = label.toLowerCase();
+      if (t.includes('cake')) {
+        return {
+          title: '✨ ✴︎⋆ Cake ⋆✴✨',
+          desc: 'Make a wish and blow the candles! 🎂',
+          showForm: false,
+          showCake: true
+        };
+      } else if (t.includes('wishes') || t.includes('wish')) {
+        return {
+          title: '🧸 ✴︎⋆ Wishes ⋆✴ 🧸 ',
+          desc: 'Type your wish heree ≽(•⩊ •マ≼',
+          showForm: true,
+          showCake: false
+        };
+      } else if (t.includes('letter')) {
+        return {
+          title: '🌸 ✴︎⋆ Letter ⋆✴ 🌸',
+          desc: 'A little letter full of love and memories. ✉️',
+          showForm: false,
+          showCake: false
+        };
+      } else if (t.includes('gift') || t.includes('present')) {
+        return {
+          title: '🎁 ✴︎⋆ Gift ⋆✴ 🎁',
+          desc: 'I hope you like your gift :3',
+          showForm: false,
+          showGift: true
+        };
+      }
+      return {
+        title: label,
+        desc: '',
+        showForm: false,
+        showCake: false
+      };
+    }
+
+    window.showNavenPopup = function(label) {
+      const info = getPopupTextFor(label);
+      document.getElementById('navenTitle').textContent = info.title;
+      document.getElementById('navenDesc').textContent = info.desc;
+
+      // If user asked for the Letter, show the letter popup (typewriter + image cycle)
+      if (String(label).toLowerCase().includes('letter')) {
+        try { closeNavenPopup(); } catch (e) {}
+        showLetterPopup();
+        return;
+      }
+      // show/hide wish form
+      const wishForm = document.getElementById('wishForm');
+      if (info.showForm) {
+        wishForm.style.display = 'block';
+        document.getElementById('wishText').value = '';
+        document.getElementById('wishSubmit').onclick = function (e) {
+          e.preventDefault();
+          closeNavenPopup();
+
+          const img = document.getElementById('wishPhotoImg');
+          const overlay = document.getElementById('wishOverlayText');
+          const popup = document.getElementById('wishPhotoPopup');
+
+          // fixed overlay text
+          overlay.textContent = '♡⊹˚₊ May your wish come true ₊˚⊹♡';
+
+          // hide popup until image loads successfully
+          popup.style.display = 'none';
+          img.style.display = 'none';
+
+          img.onload = function () {
+            console.log('wish image loaded:', img.src);
+            img.style.display = 'block';
+            popup.style.display = 'flex';
+            popup.setAttribute('aria-hidden', 'false');
+          };
+          img.onerror = function () {
+            console.error('wish image failed to load:', img.src);
+            // fallback image if meowl.jpg missing
+            if (!img.dataset.fallback) {
+              img.dataset.fallback = '1';
+              img.src = 'download.jpg';
+            } else {
+              // show popup even if no image
+              img.style.display = 'none';
+              popup.style.display = 'flex';
+              popup.setAttribute('aria-hidden', 'false');
+            }
+          };
+ 
+          // set the correct filename (use the exact filename you requested)
+          img.src = '— meowl_.jpg';
+        };
+      } else {
+        wishForm.style.display = 'none';
+      }
+      
+      // if cake requested, open cake popup instead of the generic naven
+      if (info.showCake) {
+        document.getElementById('navenPopup').style.display = 'none';
+        showCakePopup();
+        return;
+      }
+
+
+       if (info.showGift) {
+        document.getElementById('navenPopup').style.display = 'none';
+        showGiftPopup();
+        return;
+      }
+
+      document.getElementById('navenPopup').style.display = 'flex';
+      document.getElementById('navenPopup').setAttribute('aria-hidden', 'false');
+    };
+
+    window.closeNavenPopup = function() {
+      document.getElementById('navenPopup').style.display = 'none';
+      document.getElementById('navenPopup').setAttribute('aria-hidden', 'true');
+    };
+
+    window.closeWishPhotoPopup = function() {
+      document.getElementById('wishPhotoPopup').style.display = 'none';
+      document.getElementById('wishPhotoPopup').setAttribute('aria-hidden', 'true');
+    };
+
+    // Attach listeners only to the four buttons inside the startPopup
+    const startButtons = document.querySelectorAll('#startPopup .open');
+    startButtons.forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        // use button text as identifier
+        const label = (this.textContent || this.innerText || '').trim();
+        showNavenPopup(label);
+      });
+    });
+  })();
+
+
+  function showGiftPopup() {
+    const el = document.getElementById('giftPopup');
+    if (!el) return;
+    el.style.display = 'flex';
+    el.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeGiftPopup() {
+    const el = document.getElementById('giftPopup');
+    if (!el) return;
+    el.style.display = 'none';
+    el.setAttribute('aria-hidden', 'true');
+  }
+
+  // NEW: cake popup behavior and confetti (inserted after the IIFE)
+  // NOTE: removed the extra <script> tag that caused a nested script error
+  // simplified cake show/close functions (uses CSS markup above)
+  function showCakePopup() {
+    const el = document.getElementById('cakePopup');
+    if (!el) return;
+    el.style.display = 'flex';
+    el.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeCakePopup() {
+    const el = document.getElementById('cakePopup');
+    if (!el) return;
+    el.style.display = 'none';
+    el.setAttribute('aria-hidden', 'true');
+  }
+
+  // blow the candle: swap image to "blowing" then to "blown"
+  function blowCandle() {
+    const img = document.getElementById('cakeImg');
+    const btn = document.getElementById('blowBtn');
+    if (!img || !btn) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Blowing…';
+    btn.style.opacity = '0.86';
+    img.style.transition = img.style.transition || 'opacity 240ms ease';
+
+    const blowingSrc = encodeURI('cake-blowing.png'); // image shown while blowing
+    const blownSrc = encodeURI('cake-blown.png');     // final image after blow
+    let finished = false;
+
+    function setSrcWithFade(src, cb) {
+      // fade out, swap src, fade in
+      img.style.opacity = '0';
+      setTimeout(() => {
+        // attach handlers once
+        const onLoad = () => {
+          img.removeEventListener('load', onLoad);
+          img.removeEventListener('error', onError);
+          // fade in
+          requestAnimationFrame(() => { img.style.opacity = '1'; });
+          if (cb) cb(null);
+        };
+        const onError = () => {
+          img.removeEventListener('load', onLoad);
+          img.removeEventListener('error', onError);
+          console.warn('Failed to load', src);
+          // still fade in to avoid 0-opacity stuck
+          requestAnimationFrame(() => { img.style.opacity = '1'; });
+          if (cb) cb(new Error('load error'));
+        };
+        img.addEventListener('load', onLoad);
+        img.addEventListener('error', onError);
+        img.src = src;
+      }, 220);
+    }
+
+    // Step 1: show "blowing" image
+    setSrcWithFade(blowingSrc, () => {
+      // keep blowing image visible a bit then switch to blown
+      setTimeout(() => {
+        setSrcWithFade(blownSrc, (err) => {
+          // finalize UI regardless of load success
+          try { createConfettiBurst(); } catch (e) {}
+          btn.textContent = 'Blown ✓';
+          btn.style.cursor = 'default';
+          finished = true;
+        });
+      }, 1100); // time while "blowing" image shows
+    });
+
+    // Safety: if something hangs, finalize after 4s
+    setTimeout(() => {
+      if (!finished) {
+        try { createConfettiBurst(); } catch (e) {}
+        btn.textContent = 'Blown ✓';
+        btn.style.cursor = 'default';
+      }
+    }, 4000);
+  }
+
+
+// Robust wish submit handler (replace/override existing hookup)
+;(function () {
+  const submit = document.getElementById('wishSubmit');
+  if (!submit) return;
+
+  // remove any old handler to avoid duplicates
+  submit._saved && submit.removeEventListener('click', submit._saved);
+
+  submit._saved = function (e) {
+    e.preventDefault();
+    try { closeNavenPopup(); } catch (err) { /* ignore */ }
+
+    const img = document.getElementById('wishPhotoImg');
+    const overlay = document.getElementById('wishOverlayText');
+    const popup = document.getElementById('wishPhotoPopup');
+
+    overlay.textContent = '♡⊹˚₊ May your wish come true ₊˚⊹♡';
+
+    // filenames to try (try the exact requested name first, then fallbacks)
+    const files = ['— meowl_.jpg', '--meowl.jpg', 'meowl.jpg', 'download.jpg'];
+    let idx = 0;
+    let shown = false;
+    let hideTimeout;
+
+    function hidePopupLater() {
+      clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(() => {
+        popup.style.opacity = '0';
+        setTimeout(() => {
+          popup.style.display = 'none';
+          popup.setAttribute('aria-hidden', 'true');
+        }, 600);
+      }, 3000);
+    }
+
+    // Immediately show the popup (with CSS opacity transition) so user sees animation
+    popup.style.display = 'flex';
+    popup.setAttribute('aria-hidden', 'false');
+    popup.style.opacity = '0';
+    // ensure overlay visible even if image hasn't loaded
+    overlay.style.display = 'block';
+    img.style.display = 'none';
+
+    // trigger CSS transition/animation frame
+    requestAnimationFrame(() => { popup.style.opacity = '1'; });
+
+    // When image loads, reveal it (popup already visible)
+    img.onload = function () {
+      console.log('wish image loaded:', img.src);
+      img.style.display = 'block';
+      // ensure overlay stays on top
+      overlay.style.display = 'block';
+      shown = true;
+      hidePopupLater();
+    };
+
+    img.onerror = function () {
+      console.warn('wish image failed to load:', img.src);
+      // try next filename
+      idx++;
+      if (idx < files.length) {
+        img.src = encodeURI(files[idx]);
+        return;
+      }
+      // all attempts failed -> show popup with overlay only
+      img.style.display = 'none';
+      overlay.style.display = 'block';
+      shown = true;
+      hidePopupLater();
+    };
+
+    // prepare popup visual state and start loading first candidate
+    popup.style.display = 'flex';
+    popup.style.opacity = '1';
+    img.style.display = 'none';
+    img.src = encodeURI(files[0]);
+
+    // safety: if nothing fires in 800ms, still schedule hide so popup doesn't hang
+    setTimeout(() => {
+      if (!shown) hidePopupLater();
+    }, 800);
+  };
+
+  submit.addEventListener('click', submit._saved, { passive: false });
+})();
+
+  // Letter text (keeps paragraphs separated)
+  const letterText =
+`Dear Bestie, Rhian
+
+Happy, happy birthday! 🎂✨
+
+Today isn’t just another day—it’s a celebration of *you*. Of your existence, your journey, your triumphs, your quirks, your laughter, and every little moment that makes you irreplaceably *you*. I wanted to take the time to write you something long, something real, something worthy of the person you are. So here goes.
+
+From the moment you entered this world, you’ve been weaving stories into the lives of everyone around you. Whether through quiet kindness or loud, contagious joy, you’ve left fingerprints on hearts. And today, we pause to honor that. To honor *you*.
+
+I hope this year brings you softness where you need healing, fire where you need courage, and clarity where you’ve felt lost. I hope you laugh until your stomach hurts, cry when you need to, and dance like no one’s watching (or like everyone is, and you don’t care). I hope you find new dreams, or rediscover old ones. I hope you feel seen, heard, and deeply loved.
+
+And if this past year was hard—if it held grief, confusion, or loneliness—I want you to know that you’re not alone. You’re allowed to carry those things and still celebrate. You’re allowed to be a work in progress and still be worthy of joy. You’re allowed to be messy and magical at the same time.
+
+With all my love and admiration,`;
+
+  // typing control
+  let _letterTyping = { running: false, timer: null, stop: false };
+
+  function showLetterPopup() {
+     // stop any previous typing
+     _letterTyping.stop = true;
+     clearTimeout(_letterTyping.timer);
+ 
+     const popup = document.getElementById('letterPopup');
+     const body = document.getElementById('letterBody');
+     popup.style.display = 'flex';
+     popup.setAttribute('aria-hidden', 'false');
+     // start hidden then animate in
+     requestAnimationFrame(() => { popup.style.opacity = '1'; });
+ 
+     body.innerHTML = '';            // clear previous
+     _letterTyping = { running: true, timer: null, stop: false };
+ 
+     // split into paragraphs to keep spacing
+     const paragraphs = letterText.split(/\n\s*\n/);
+     let pIndex = 0;
+ 
+     // start periodic image popups while letter is open
+     startLetterImageCycle();
+    
+    // ensure letter scroll is at top when opening and allow keyboard focus
+    body.scrollTop = 0;
+    if (body.focus) body.focus();
+    
+    function typeParagraph() {
+      if (_letterTyping.stop) return;
+      if (pIndex >= paragraphs.length) {
+        _letterTyping.running = false;
+        return;
+      }
+      const para = paragraphs[pIndex].trim();
+      // create paragraph container
+      const pEl = document.createElement('div');
+      pEl.style.marginBottom = '14px';
+      body.appendChild(pEl);
+ 
+      let i = 0;
+      function typeChar() {
+        if (_letterTyping.stop) return;
+        if (i <= para.length - 1) {
+          // append next character (preserve asterisks as plain text)
+          pEl.innerHTML = para.slice(0, i + 1).replace(/\*/g, ''); // remove literal * if you want
+          i++;
+          // slightly slower after punctuation for natural flow
+          const char = para.charAt(i - 1);
+          let delay = 28;
+          if (/[.,!?]/.test(char)) delay = 140;
+          else if (/\s/.test(char)) delay = 18;
+          _letterTyping.timer = setTimeout(typeChar, delay);
+        } else {
+          // paragraph finished — small pause then next paragraph
+          pIndex++;
+          _letterTyping.timer = setTimeout(typeParagraph, 420);
+        }
+      }
+      typeChar();
+     }
+ 
+     // small initial delay then start
+     _letterTyping.timer = setTimeout(typeParagraph, 220);
+   }
+ 
+   function closeLetterPopup() {
+     _letterTyping.stop = true;
+     clearTimeout(_letterTyping.timer);
+     stopLetterImageCycle(); // stop image popups when closing
+     const popup = document.getElementById('letterPopup');
+     popup.style.opacity = '0';
+     setTimeout(() => {
+       popup.style.display = 'none';
+       popup.setAttribute('aria-hidden', 'true');
+     }, 420);
+   }
+ 
+  // --- letter image cycle logic (simplified: pick random 1..6 -> random/X.jpg) ---
+  let _letterImageInterval = null;
+  let _letterImageTimeout = null;
+  let _letterPrevIndex = null; // prevent same picture twice in a row
+
+  function startLetterImageCycle() {
+    stopLetterImageCycle();
+    const popupImg = document.getElementById('letterImageElem');
+    const popupWrap = document.getElementById('letterImagePopup');
+    if (!popupWrap || !popupImg) return;
+
+    const displayMs = 2400; // how long the picture stays visible (ms) — made longer
+
+    function pickDifferentIndex() {
+      // pick a number 1..6 but avoid repeating the previous index
+      let n = Math.floor(Math.random() * 6) + 1;
+      // try a few times to get a different number
+      let attempts = 0;
+      while (n === _letterPrevIndex && attempts < 6) {
+        n = Math.floor(Math.random() * 6) + 1;
+        attempts++;
+      }
+      _letterPrevIndex = n;
+      return n;
+    }
+
+    function showOnce() {
+      const n = pickDifferentIndex();
+      const src = encodeURI(`random/${n}.jpg`);
+      // cross-fade
+      popupImg.style.transition = popupImg.style.transition || 'opacity 180ms ease';
+      popupImg.style.opacity = '0';
+      setTimeout(() => {
+        popupImg.onload = () => requestAnimationFrame(() => { popupImg.style.opacity = '1'; });
+        popupImg.onerror = () => {
+          console.warn('letter image failed to load:', src);
+          // prevent staying invisible
+          popupImg.style.opacity = '1';
+        };
+        popupImg.src = src;
+        popupWrap.classList.add('show');
+        popupWrap.setAttribute('aria-hidden', 'false');
+        clearTimeout(_letterImageTimeout);
+        _letterImageTimeout = setTimeout(() => {
+          popupWrap.classList.remove('show');
+          popupWrap.setAttribute('aria-hidden', 'true');
+        }, displayMs);
+      }, 180);
+    }
+
+    // immediate first show, then every (displayMs + small gap) ms
+    showOnce();
+    _letterImageInterval = setInterval(showOnce, displayMs + 600);
+  }
+
+  function stopLetterImageCycle() {
+    clearInterval(_letterImageInterval);
+    _letterImageInterval = null;
+    clearTimeout(_letterImageTimeout);
+    _letterImageTimeout = null;
+    const popupWrap = document.getElementById('letterImagePopup');
+    if (popupWrap) {
+      popupWrap.classList.remove('show');
+      popupWrap.setAttribute('aria-hidden', 'true');
+    }
+  }
+  // --- end letter image cycle logic ---
+</script>
+
+</body>
+</html>
