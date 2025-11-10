@@ -710,6 +710,11 @@ margin-left: -155px;
 </head>
 <body>
 
+<audio id="intro" src="piano-logo-129183.mp3"></audio>
+<audio id="hbd" src="happy-birthday-piano-variations-117314.mp3"></audio>
+<audio id="no" src="cute-cat-352656.mp3"></audio>
+
+  
 <canvas id="confetti-canvas"></canvas>
   
   <div class="container">
@@ -882,8 +887,14 @@ margin-left: -155px;
 
 <script>
 
+
+window.onload = function() {
+    document.getElementById("intro").play();
+}
+  
   function handleNo() {
-  document.getElementById("noPopup").style.display = "flex";
+  document.getElementById("noPopup").style.display = "flex"
+  document.getElementById("no").play();
 }
   const canvas = document.getElementById("confetti-canvas");
   const ctx = canvas.getContext("2d");
@@ -956,6 +967,7 @@ margin-left: -155px;
   function openEnvelope() {
     const envelope = document.getElementById('envelope');
     const flap = envelope.querySelector('.flap');
+    document.getElementById("hbd").play();
     const messageBox = document.getElementById('messageBox');
   
 
@@ -1513,4 +1525,5 @@ With all my love and admiration,`;
 </script>
 
 </body>
+
 </html>
