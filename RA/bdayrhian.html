@@ -889,10 +889,6 @@ margin-left: -155px;
 <script>
 
 
-
-<audio id="hbd" src="happy-birthday-piano-variations-117314.mp3"></audio>
-<audio id="no" src="cute-cat-352656.mp3"></audio>
-
   
 window.onload = function() {
     document.getElementById("intro").play();
@@ -900,7 +896,8 @@ window.onload = function() {
   
   function handleNo() {
   document.getElementById("noPopup").style.display = "flex"
-  document.getElementById("no").play();
+  document.getElementById("no").play()
+  document.getElementById("no").play();;
 }
   const canvas = document.getElementById("confetti-canvas");
   const ctx = canvas.getContext("2d");
@@ -975,6 +972,9 @@ window.onload = function() {
     const flap = envelope.querySelector('.flap');
     document.getElementById("hbd").play();
     const messageBox = document.getElementById('messageBox');
+    document.getElementById("hbd").play();
+    document.getElementById("hbd").play();
+    document.getElementById("hbd").play();
   
 
     flap.style.transform = 'rotateX(-180deg)';
@@ -984,6 +984,8 @@ window.onload = function() {
       messageBox.style.display = 'flex';
       createConfettiBurst(); // 🎉 Trigger confetti burst
     }, 800);
+    document.getElementById("hbd").play();
+    document.getElementById("hbd").play();
   }
 
   function handleNo() {
@@ -1533,4 +1535,5 @@ With all my love and admiration,`;
 </body>
 
 </html>
+
 
