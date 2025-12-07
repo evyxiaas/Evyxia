@@ -28,7 +28,7 @@ function submitLogin() {
 
   if (username === "Precious" && password === "catpower") {
     redirectUrl = "true.html";
-  } else if (username === "Ata" && password === "Jay") {
+  } else if (username === "Bestie" && password === "Jay") {
     redirectUrl = "RA\\bdayrhian.html";
   } else if (username === "Bar" && password === "Venti") {
     redirectUrl = "CJ\\bdaycj.html";
@@ -39,4 +39,5 @@ function submitLogin() {
   setTimeout(() => {
     window.location.href = redirectUrl;
   }, 300); // wait for fade-out before redirect
+
 }
