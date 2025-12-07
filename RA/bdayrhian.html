@@ -711,7 +711,7 @@ margin-left: -155px;
 </head>
 <body>
 
-<audio id="intro" src="happy-birthday-piano-variations-117314.mp3"></audio>
+<audio id="intro" src="happy-birthday-piano-variations-117314.mp3" autoplay></audio>
 
   
 <canvas id="confetti-canvas"></canvas>
@@ -885,31 +885,76 @@ margin-left: -155px;
    </div>
 
 <script>
+/* Cleaned/merged script
+   - guards .play() calls
+   - removes duplicated functions
+   - single popup show/close helpers
+   - kept letter typing and image cycle (1..6) with no-back-to-back repeats
+   - robust wish photo loader with fallbacks
+*/
 
+(function () {
+  // safe DOM helpers
+  const $ = id => document.getElementById(id);
+  function safePlay(id) { try { const a = $(id); if (a && typeof a.play === 'function') a.play(); } catch (e) { console.warn('audio play failed', id, e); } }
 
-  
-window.onload = function() {
-    document.getElementById("intro").play();
-}
-  
-  function handleNo() {
-  document.getElementById("noPopup").style.display = "flex"
-  document.getElementById("no").play()
-  document.getElementById("no").play();;
-}
-  const canvas = document.getElementById("confetti-canvas");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  // Intro play once DOM loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => safePlay('intro'));
+  } else {
+    safePlay('intro');
+  }
+
+  // Canvas confetti setup
+  const canvas = $('confetti-canvas');
+  const ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null;
+  function setCanvasSize() {
+    if (!canvas) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  setCanvasSize();
+  window.addEventListener('resize', setCanvasSize);
+
+  const pastelColors = [
+    "rgba(255,182,193,0.9)",
+    "rgba(255,105,180,0.9)",
+    "rgba(255,255,153,0.9)",
+    "rgba(255,239,184,0.9)",
+    "rgba(173,216,230,0.9)",
+    "rgba(135,206,250,0.9)"
+  ];
 
   let confetti = [];
-  let animationFrame;
-  let creationStart;
+  let animationFrame = null;
+
+  function animateConfetti() {
+    if (!ctx) return;
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confetti.forEach((c) => {
+        ctx.beginPath();
+        ctx.lineWidth = c.r;
+        ctx.strokeStyle = c.color;
+        ctx.moveTo(c.x + c.tilt, c.y);
+        ctx.lineTo(c.x, c.y + c.tilt + c.r);
+        ctx.stroke();
+        c.tiltAngle += c.tiltAngleIncrement;
+        c.y += (c.d / 2);
+        c.x += Math.sin(c.tiltAngle) * 2;
+        c.tilt = Math.sin(c.tiltAngle) * 15;
+      });
+      confetti = confetti.filter(c => c.y < canvas.height + 20);
+      if (confetti.length) animationFrame = requestAnimationFrame(draw);
+      else { cancelAnimationFrame(animationFrame); animationFrame = null; }
+    }
+    if (!animationFrame) draw();
+  }
 
   function createConfettiBurst() {
-    creationStart = Date.now();
-    function generateConfetti() {
-      if (Date.now() - creationStart < 1500) {
+    const start = Date.now();
+    (function gen() {
+      if (Date.now() - start < 1500) {
         for (let i = 0; i < 10; i++) {
           confetti.push({
             x: Math.random() * canvas.width,
@@ -919,456 +964,195 @@ window.onload = function() {
             color: pastelColors[Math.floor(Math.random() * pastelColors.length)],
             tilt: Math.random() * 10 - 5,
             tiltAngle: 0,
-            tiltAngleIncrement: Math.random() * 0.07 + 0.05,
+            tiltAngleIncrement: Math.random() * 0.07 + 0.05
           });
         }
-        setTimeout(generateConfetti, 100); // keep adding for 1.5s
+        setTimeout(gen, 100);
       }
-    }
-    generateConfetti();
+    })();
     animateConfetti();
   }
 
-  const pastelColors = [
-    "rgba(255,182,193,0.9)", // light pink
-    "rgba(255,105,180,0.9)", // hot pink
-    "rgba(255,255,153,0.9)", // soft yellow
-    "rgba(255,239,184,0.9)", // pale yellow
-    "rgba(173,216,230,0.9)", // light blue
-    "rgba(135,206,250,0.9)"  // sky blue
-  ];
+  // Generic popup helpers
+  function showEl(id) { const el = $(id); if (el) el.style.display = 'flex'; }
+  function hideEl(id) { const el = $(id); if (el) el.style.display = 'none'; }
 
-  function animateConfetti() {
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      confetti.forEach((c, i) => {
-        ctx.beginPath();
-        ctx.lineWidth = c.r;
-        ctx.strokeStyle = c.color;
-        ctx.moveTo(c.x + c.tilt, c.y);
-        ctx.lineTo(c.x, c.y + c.tilt + c.r);
-        ctx.stroke();
-
-        c.tiltAngle += c.tiltAngleIncrement;
-        c.y += (c.d / 2);
-        c.x += Math.sin(c.tiltAngle) * 2;
-        c.tilt = Math.sin(c.tiltAngle) * 15;
-      });
-
-      confetti = confetti.filter(c => c.y < canvas.height + 20);
-      if (confetti.length > 0) {
-        animationFrame = requestAnimationFrame(draw);
-      } else {
-        cancelAnimationFrame(animationFrame);
-      }
-    }
-    draw();
-  }
-
+  // Envelope open (safe audio calls)
   function openEnvelope() {
-    const envelope = document.getElementById('envelope');
-    const flap = envelope.querySelector('.flap');
-    document.getElementById("hbd").play();
-    const messageBox = document.getElementById('messageBox');
-    document.getElementById("hbd").play();
-    document.getElementById("hbd").play();
-    document.getElementById("hbd").play();
-  
-
-    flap.style.transform = 'rotateX(-180deg)';
+    safePlay('hbd');
+    const envelope = $('envelope');
+    const flap = envelope ? envelope.querySelector('.flap') : null;
+    const messageBox = $('messageBox');
+    if (flap) flap.style.transform = 'rotateX(-180deg)';
     setTimeout(() => {
-      envelope.style.opacity = '0';
-      envelope.style.pointerEvents = 'none';
-      messageBox.style.display = 'flex';
-      createConfettiBurst(); // 🎉 Trigger confetti burst
+      if (envelope) { envelope.style.opacity = '0'; envelope.style.pointerEvents = 'none'; }
+      if (messageBox) messageBox.style.display = 'flex';
+      createConfettiBurst();
     }, 800);
-    document.getElementById("hbd").play();
-    document.getElementById("hbd").play();
   }
+  window.openEnvelope = openEnvelope;
 
-  function handleNo() {
-    alert("No button clicked!");
-  }
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
-}
+  // Consolidated closePopup - supports two usages in markup:
+  //   closePopup()  -> closes element with id 'popup'
+  //   closePopup('settingsPopup') -> closes provided id
+  window.closePopup = function(id) {
+    const el = $(id || 'popup');
+    if (el) el.style.display = 'none';
+  };
 
-function showPopup(title, desc) {
-  document.getElementById("popupTitle").textContent = title;
-  document.getElementById("popupDesc").textContent = desc;
-  document.getElementById("popup").style.display = "flex";
-}
+  // no-popup handlers
+  window.handleNo = function () {
+    // show the "no" modal if present, otherwise alert fallback
+    if ($('noPopup')) showEl('noPopup');
+    else alert("No button clicked!");
+    safePlay('no');
+  };
+  window.closeNoPopup = function () { hideEl('noPopup'); };
 
+  // Start popup control
+  function openStartPopup() { showEl('startPopup'); }
+  function closeStartPopup() { hideEl('startPopup'); }
+  window.closeStartPopup = closeStartPopup;
+  const starBtn = document.querySelector('.star');
+  if (starBtn) starBtn.addEventListener('click', openStartPopup);
 
-function closeStartPopup() {
-  document.getElementById("startPopup").style.display = "none";
-}
+  // top nav buttons
+  const starsBtn = document.querySelector('.stars');
+  if (starsBtn) starsBtn.addEventListener('click', () => showEl('settingsPopup'));
+  const stars2Btn = document.querySelector('.stars2');
+  if (stars2Btn) stars2Btn.addEventListener('click', () => showEl('infoPopup'));
+  const stars3Btn = document.querySelector('.stars3');
+  if (stars3Btn) stars3Btn.addEventListener('click', () => showEl('contactPopup'));
 
-document.querySelector(".star").onclick = () => {
-  document.getElementById("startPopup").style.display = "flex";
+  // Gift / Cake simple show/close
+  window.showGiftPopup = function() { showEl('giftPopup'); };
+  window.closeGiftPopup = function() { hideEl('giftPopup'); };
+  window.showCakePopup = function() { showEl('cakePopup'); };
+  window.closeCakePopup = function() { hideEl('cakePopup'); };
 
-};
-
-function closePopup(id) {
-  document.getElementById(id).style.display = "none";
-}
-
-document.querySelector(".stars").onclick = () => {
-  document.getElementById("settingsPopup").style.display = "flex";
-};
-
-document.querySelector(".stars2").onclick = () => {
-  document.getElementById("infoPopup").style.display = "flex";
-};
-
-document.querySelector(".stars3").onclick = () => {
-  document.getElementById("contactPopup").style.display = "flex";
-};
-
-  
-
-  function handleNo() {
-  document.getElementById("noPopup").style.display = "flex";
-}
-
-function closeNoPopup() {
-  document.getElementById("noPopup").style.display = "none";
-}
-
-function closeStartPopup() {
-  document.getElementById("startPopup").style.display = "none";
-}
-
-document.querySelector(".star").onclick = () => {
-  document.getElementById("startPopup").style.display = "flex";
-};
-
-
-// NEW: show naven popup when one of the startPopup buttons is clicked
-  (function () {
-    function getPopupTextFor(label) {
-      const t = label.toLowerCase();
-      if (t.includes('cake')) {
-        return {
-          title: '✨ ✴︎⋆ Cake ⋆✴✨',
-          desc: 'Cake!-Blow the Candless! 🎂',
-          showForm: false,
-          showCake: true
-        };
-      } else if (t.includes('wishes') || t.includes('wish')) {
-        return {
-          title: '🧸 ✴︎⋆ Wishes ⋆✴ 🧸 ',
-          desc: 'Type your wish heree ≽(•⩊ •マ≼',
-          showForm: true,
-          showCake: false
-        };
-      } else if (t.includes('letter')) {
-        return {
-          title: '🌸 ✴︎⋆ Letter ⋆✴ 🌸',
-          desc: 'A little letter full of love and memories. ✉️',
-          showForm: false,
-          showCake: false
-        };
-      } else if (t.includes('gift') || t.includes('present')) {
-        return {
-          title: '🎁 ✴︎⋆ Gift ⋆✴ 🎁',
-          desc: 'I hope you like your gift :3',
-          showForm: false,
-          showGift: true
-        };
-      }
-      return {
-        title: label,
-        desc: '',
-        showForm: false,
-        showCake: false
-      };
-    }
-
-    window.showNavenPopup = function(label) {
-      const info = getPopupTextFor(label);
-      document.getElementById('navenTitle').textContent = info.title;
-      document.getElementById('navenDesc').textContent = info.desc;
-
-      // If user asked for the Letter, show the letter popup (typewriter + image cycle)
-      if (String(label).toLowerCase().includes('letter')) {
-        try { closeNavenPopup(); } catch (e) {}
-        showLetterPopup();
-        return;
-      }
-      // show/hide wish form
-      const wishForm = document.getElementById('wishForm');
-      if (info.showForm) {
-        wishForm.style.display = 'block';
-        document.getElementById('wishText').value = '';
-        document.getElementById('wishSubmit').onclick = function (e) {
-          e.preventDefault();
-          closeNavenPopup();
-
-          const img = document.getElementById('wishPhotoImg');
-          const overlay = document.getElementById('wishOverlayText');
-          const popup = document.getElementById('wishPhotoPopup');
-
-          // fixed overlay text
-          overlay.textContent = '♡⊹˚₊ May your wish come true ₊˚⊹♡';
-
-          // hide popup until image loads successfully
-          popup.style.display = 'none';
-          img.style.display = 'none';
-
-          img.onload = function () {
-            console.log('wish image loaded:', img.src);
-            img.style.display = 'block';
-            popup.style.display = 'flex';
-            popup.setAttribute('aria-hidden', 'false');
-          };
-          img.onerror = function () {
-            console.error('wish image failed to load:', img.src);
-            // fallback image if meowl.jpg missing
-            if (!img.dataset.fallback) {
-              img.dataset.fallback = '1';
-              img.src = 'download.jpg';
-            } else {
-              // show popup even if no image
-              img.style.display = 'none';
-              popup.style.display = 'flex';
-              popup.setAttribute('aria-hidden', 'false');
-            }
-          };
- 
-          // set the correct filename (use the exact filename you requested)
-          img.src = '— meowl_.jpg';
-        };
-      } else {
-        wishForm.style.display = 'none';
-      }
-      
-      // if cake requested, open cake popup instead of the generic naven
-      if (info.showCake) {
-        document.getElementById('navenPopup').style.display = 'none';
-        showCakePopup();
-        return;
-      }
-
-
-       if (info.showGift) {
-        document.getElementById('navenPopup').style.display = 'none';
-        showGiftPopup();
-        return;
-      }
-
-      document.getElementById('navenPopup').style.display = 'flex';
-      document.getElementById('navenPopup').setAttribute('aria-hidden', 'false');
-    };
-
-    window.closeNavenPopup = function() {
-      document.getElementById('navenPopup').style.display = 'none';
-      document.getElementById('navenPopup').setAttribute('aria-hidden', 'true');
-    };
-
-    window.closeWishPhotoPopup = function() {
-      document.getElementById('wishPhotoPopup').style.display = 'none';
-      document.getElementById('wishPhotoPopup').setAttribute('aria-hidden', 'true');
-    };
-
-    // Attach listeners only to the four buttons inside the startPopup
-    const startButtons = document.querySelectorAll('#startPopup .open');
-    startButtons.forEach(btn => {
-      btn.addEventListener('click', function (e) {
-        // use button text as identifier
-        const label = (this.textContent || this.innerText || '').trim();
-        showNavenPopup(label);
-      });
-    });
-  })();
-
-
-  function showGiftPopup() {
-    const el = document.getElementById('giftPopup');
-    if (!el) return;
-    el.style.display = 'flex';
-    el.setAttribute('aria-hidden', 'false');
-  }
-
-  function closeGiftPopup() {
-    const el = document.getElementById('giftPopup');
-    if (!el) return;
-    el.style.display = 'none';
-    el.setAttribute('aria-hidden', 'true');
-  }
-
-  // NEW: cake popup behavior and confetti (inserted after the IIFE)
-  // NOTE: removed the extra <script> tag that caused a nested script error
-  // simplified cake show/close functions (uses CSS markup above)
-  function showCakePopup() {
-    const el = document.getElementById('cakePopup');
-    if (!el) return;
-    el.style.display = 'flex';
-    el.setAttribute('aria-hidden', 'false');
-  }
-
-  function closeCakePopup() {
-    const el = document.getElementById('cakePopup');
-    if (!el) return;
-    el.style.display = 'none';
-    el.setAttribute('aria-hidden', 'true');
-  }
-
-  // blow the candle: swap image to "blowing" then to "blown"
-  function blowCandle() {
-    const img = document.getElementById('cakeImg');
-    const btn = document.getElementById('blowBtn');
+  // cake blow sequence (safe)
+  window.blowCandle = function() {
+    const img = $('cakeImg');
+    const btn = $('blowBtn');
     if (!img || !btn) return;
-
     btn.disabled = true;
     btn.textContent = 'Blowing…';
     btn.style.opacity = '0.86';
     img.style.transition = img.style.transition || 'opacity 240ms ease';
-
-    const blowingSrc = encodeURI('cake-blowing.png'); // image shown while blowing
-    const blownSrc = encodeURI('cake-blown.png');     // final image after blow
+    const blowingSrc = encodeURI('cake-blowing.png');
+    const blownSrc = encodeURI('cake-blown.png');
     let finished = false;
-
     function setSrcWithFade(src, cb) {
-      // fade out, swap src, fade in
       img.style.opacity = '0';
       setTimeout(() => {
-        // attach handlers once
-        const onLoad = () => {
-          img.removeEventListener('load', onLoad);
-          img.removeEventListener('error', onError);
-          // fade in
-          requestAnimationFrame(() => { img.style.opacity = '1'; });
-          if (cb) cb(null);
-        };
-        const onError = () => {
-          img.removeEventListener('load', onLoad);
-          img.removeEventListener('error', onError);
-          console.warn('Failed to load', src);
-          // still fade in to avoid 0-opacity stuck
-          requestAnimationFrame(() => { img.style.opacity = '1'; });
-          if (cb) cb(new Error('load error'));
-        };
+        const onLoad = () => { img.removeEventListener('load', onLoad); img.removeEventListener('error', onErr); requestAnimationFrame(() => img.style.opacity = '1'); if (cb) cb(null); };
+        const onErr = () => { img.removeEventListener('load', onLoad); img.removeEventListener('error', onErr); requestAnimationFrame(() => img.style.opacity = '1'); if (cb) cb(new Error('load')); };
         img.addEventListener('load', onLoad);
-        img.addEventListener('error', onError);
+        img.addEventListener('error', onErr);
         img.src = src;
       }, 220);
     }
-
-    // Step 1: show "blowing" image
     setSrcWithFade(blowingSrc, () => {
-      // keep blowing image visible a bit then switch to blown
       setTimeout(() => {
-        setSrcWithFade(blownSrc, (err) => {
-          // finalize UI regardless of load success
+        setSrcWithFade(blownSrc, () => {
           try { createConfettiBurst(); } catch (e) {}
           btn.textContent = 'Blown ✓';
           btn.style.cursor = 'default';
           finished = true;
         });
-      }, 1100); // time while "blowing" image shows
+      }, 1100);
     });
-
-    // Safety: if something hangs, finalize after 4s
     setTimeout(() => {
-      if (!finished) {
-        try { createConfettiBurst(); } catch (e) {}
-        btn.textContent = 'Blown ✓';
-        btn.style.cursor = 'default';
-      }
+      if (!finished) { try { createConfettiBurst(); } catch (e) {} btn.textContent = 'Blown ✓'; btn.style.cursor = 'default'; }
     }, 4000);
-  }
-
-
-// Robust wish submit handler (replace/override existing hookup)
-;(function () {
-  const submit = document.getElementById('wishSubmit');
-  if (!submit) return;
-
-  // remove any old handler to avoid duplicates
-  submit._saved && submit.removeEventListener('click', submit._saved);
-
-  submit._saved = function (e) {
-    e.preventDefault();
-    try { closeNavenPopup(); } catch (err) { /* ignore */ }
-
-    const img = document.getElementById('wishPhotoImg');
-    const overlay = document.getElementById('wishOverlayText');
-    const popup = document.getElementById('wishPhotoPopup');
-
-    overlay.textContent = '♡⊹˚₊ May your wish come true ₊˚⊹♡';
-
-    // filenames to try (try the exact requested name first, then fallbacks)
-    const files = ['— meowl_.jpg', '--meowl.jpg', 'meowl.jpg', 'download.jpg'];
-    let idx = 0;
-    let shown = false;
-    let hideTimeout;
-
-    function hidePopupLater() {
-      clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(() => {
-        popup.style.opacity = '0';
-        setTimeout(() => {
-          popup.style.display = 'none';
-          popup.setAttribute('aria-hidden', 'true');
-        }, 600);
-      }, 3000);
-    }
-
-    // Immediately show the popup (with CSS opacity transition) so user sees animation
-    popup.style.display = 'flex';
-    popup.setAttribute('aria-hidden', 'false');
-    popup.style.opacity = '0';
-    // ensure overlay visible even if image hasn't loaded
-    overlay.style.display = 'block';
-    img.style.display = 'none';
-
-    // trigger CSS transition/animation frame
-    requestAnimationFrame(() => { popup.style.opacity = '1'; });
-
-    // When image loads, reveal it (popup already visible)
-    img.onload = function () {
-      console.log('wish image loaded:', img.src);
-      img.style.display = 'block';
-      // ensure overlay stays on top
-      overlay.style.display = 'block';
-      shown = true;
-      hidePopupLater();
-    };
-
-    img.onerror = function () {
-      console.warn('wish image failed to load:', img.src);
-      // try next filename
-      idx++;
-      if (idx < files.length) {
-        img.src = encodeURI(files[idx]);
-        return;
-      }
-      // all attempts failed -> show popup with overlay only
-      img.style.display = 'none';
-      overlay.style.display = 'block';
-      shown = true;
-      hidePopupLater();
-    };
-
-    // prepare popup visual state and start loading first candidate
-    popup.style.display = 'flex';
-    popup.style.opacity = '1';
-    img.style.display = 'none';
-    img.src = encodeURI(files[0]);
-
-    // safety: if nothing fires in 800ms, still schedule hide so popup doesn't hang
-    setTimeout(() => {
-      if (!shown) hidePopupLater();
-    }, 800);
   };
 
-  submit.addEventListener('click', submit._saved, { passive: false });
-})();
+  // Robust wish submit (uses #wishSubmit)
+  (function initWishSubmit() {
+    const submit = $('wishSubmit');
+    if (!submit) return;
+    // remove any inline onclick interference by overriding
+    submit.addEventListener('click', function (e) {
+      e.preventDefault();
+      try { window.closeNavenPopup && window.closeNavenPopup(); } catch (er) {}
+      const popup = $('wishPhotoPopup');
+      const img = $('wishPhotoImg');
+      const overlay = $('wishOverlayText');
+      if (!popup || !img || !overlay) return;
+      overlay.textContent = '♡⊹˚₊ May your wish come true ₊˚⊹♡';
+      const files = ['— meowl_.jpg', '--meowl.jpg', 'meowl.jpg', 'download.jpg'];
+      let idx = 0;
+      let shown = false;
+      let hideTimeout = null;
 
-  // Letter text (keeps paragraphs separated)
-  const letterText =
-`My dear Bestie ◝(ᵔᗜᵔ)◜
+      function hidePopupLater() {
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+          popup.style.opacity = '0';
+          setTimeout(() => { popup.style.display = 'none'; popup.setAttribute('aria-hidden', 'true'); }, 600);
+        }, 3000);
+      }
+
+      popup.style.display = 'flex';
+      popup.setAttribute('aria-hidden', 'false');
+      popup.style.opacity = '0';
+      overlay.style.display = 'block';
+      img.style.display = 'none';
+      requestAnimationFrame(() => { popup.style.opacity = '1'; });
+
+      img.onload = function () { img.style.display = 'block'; overlay.style.display = 'block'; shown = true; hidePopupLater(); };
+      img.onerror = function () {
+        idx++;
+        if (idx < files.length) { img.src = encodeURI(files[idx]); return; }
+        img.style.display = 'none'; overlay.style.display = 'block'; shown = true; hidePopupLater();
+      };
+
+      img.src = encodeURI(files[0]);
+      setTimeout(() => { if (!shown) hidePopupLater(); }, 800);
+    }, { passive: false });
+  })();
+
+  // NAV popup logic: map label to content & actions
+  (function setupNavenButtons() {
+    function getPopupTextFor(label) {
+      const t = String(label).toLowerCase();
+      if (t.includes('cake')) return { title: '✨ ✴︎⋆ Cake ⋆✴✨', desc: 'Cake! - Blow the Candless! 🎂', action: 'cake' };
+      if (t.includes('wishes') || t.includes('wish')) return { title: '🧸 ✴︎⋆ Wishes ⋆✴ 🧸', desc: 'Type your wish heree ≽(•⩊ •マ≼', action: 'wishes' };
+      if (t.includes('letter')) return { title: '🌸 ✴︎⋆ Letter ⋆✴ 🌸', desc: 'A little letter full of love and memories. ✉️', action: 'letter' };
+      if (t.includes('gift') || t.includes('present')) return { title: '🎁 ✴︎⋆ Gift ⋆✴ 🎁', desc: 'I hope you like your gift :3', action: 'gift' };
+      return { title: label, desc: '', action: null };
+    }
+
+    window.showNavenPopup = function(label) {
+      const info = getPopupTextFor(label);
+      const titleEl = $('navenTitle'), descEl = $('navenDesc');
+      if (titleEl) titleEl.textContent = info.title;
+      if (descEl) descEl.textContent = info.desc;
+      // handle actions
+      if (info.action === 'letter') { try { window.closeNavenPopup(); } catch (e) {} showLetterPopup(); return; }
+      if (info.action === 'cake') { hideEl('navenPopup'); showCakePopup(); return; }
+      if (info.action === 'gift') { hideEl('navenPopup'); showGiftPopup(); return; }
+      if (info.action === 'wishes') { // show wish form within naven
+        const wishForm = $('wishForm'); if (wishForm) wishForm.style.display = 'block';
+      } else {
+        const wishForm = $('wishForm'); if (wishForm) wishForm.style.display = 'none';
+      }
+      showEl('navenPopup');
+      $('navenPopup') && $('navenPopup').setAttribute('aria-hidden', 'false');
+    };
+
+    window.closeNavenPopup = function() { hideEl('navenPopup'); $('navenPopup') && $('navenPopup').setAttribute('aria-hidden', 'true'); };
+
+    // attach the 4 startPopup buttons
+    const startButtons = document.querySelectorAll('#startPopup .open');
+    startButtons.forEach(btn => btn.addEventListener('click', function () {
+      const label = (this.textContent || this.innerText || '').trim();
+      showNavenPopup(label);
+    }));
+  })();
+
+  // LETTER logic (typewriter + image cycle)
+  const letterText = `My dear Bestie ◝(ᵔᗜᵔ)◜
 
 
 Happy birthday, my dearest bestie. I hope you're doing well. Today is just not December 8, but your sweet sixteen birthday. a reminder of your years of journey and your achievements. But most of all, it's a celebration of what's to come.
@@ -1383,107 +1167,82 @@ Once again, may you have a great celebration, and your day will be filled with l
 From
 Precious A, Bestie ≽(•⩊ •マ≼`;
 
-  // typing control
   let _letterTyping = { running: false, timer: null, stop: false };
 
   function showLetterPopup() {
-     // stop any previous typing
-     _letterTyping.stop = true;
-     clearTimeout(_letterTyping.timer);
- 
-     const popup = document.getElementById('letterPopup');
-     const body = document.getElementById('letterBody');
-     popup.style.display = 'flex';
-     popup.setAttribute('aria-hidden', 'false');
-     // start hidden then animate in
-     requestAnimationFrame(() => { popup.style.opacity = '1'; });
- 
-     body.innerHTML = '';            // clear previous
-     _letterTyping = { running: true, timer: null, stop: false };
- 
-     // split into paragraphs to keep spacing
-     const paragraphs = letterText.split(/\n\s*\n/);
-     let pIndex = 0;
- 
-     // start periodic image popups while letter is open
-     startLetterImageCycle();
-    
-    // ensure letter scroll is at top when opening and allow keyboard focus
+    _letterTyping.stop = true;
+    clearTimeout(_letterTyping.timer);
+    const popup = $('letterPopup');
+    const body = $('letterBody');
+    if (!popup || !body) return;
+    showEl('letterPopup');
+    popup.setAttribute('aria-hidden', 'false');
+    requestAnimationFrame(() => { popup.style.opacity = '1'; });
+    body.innerHTML = '';
+    _letterTyping = { running: true, timer: null, stop: false };
+    const paragraphs = letterText.split(/\n\s*\n/);
+    let pIndex = 0;
+    startLetterImageCycle();
     body.scrollTop = 0;
     if (body.focus) body.focus();
-    
+
     function typeParagraph() {
       if (_letterTyping.stop) return;
-      if (pIndex >= paragraphs.length) {
-        _letterTyping.running = false;
-        return;
-      }
+      if (pIndex >= paragraphs.length) { _letterTyping.running = false; return; }
       const para = paragraphs[pIndex].trim();
-      // create paragraph container
       const pEl = document.createElement('div');
       pEl.style.marginBottom = '14px';
       body.appendChild(pEl);
- 
+
       let i = 0;
       function typeChar() {
         if (_letterTyping.stop) return;
         if (i <= para.length - 1) {
-          // append next character (preserve asterisks as plain text)
-          pEl.innerHTML = para.slice(0, i + 1).replace(/\*/g, ''); // remove literal * if you want
+          pEl.innerHTML = para.slice(0, i + 1).replace(/\*/g, '');
           i++;
-          // slightly slower after punctuation for natural flow
           const char = para.charAt(i - 1);
           let delay = 28;
           if (/[.,!?]/.test(char)) delay = 140;
           else if (/\s/.test(char)) delay = 18;
           _letterTyping.timer = setTimeout(typeChar, delay);
         } else {
-          // paragraph finished — small pause then next paragraph
           pIndex++;
           _letterTyping.timer = setTimeout(typeParagraph, 420);
         }
       }
       typeChar();
-     }
- 
-     // small initial delay then start
-     _letterTyping.timer = setTimeout(typeParagraph, 220);
-   }
- 
-   function closeLetterPopup() {
-     _letterTyping.stop = true;
-     clearTimeout(_letterTyping.timer);
-     stopLetterImageCycle(); // stop image popups when closing
-     const popup = document.getElementById('letterPopup');
-     popup.style.opacity = '0';
-     setTimeout(() => {
-       popup.style.display = 'none';
-       popup.setAttribute('aria-hidden', 'true');
-     }, 420);
-   }
- 
-  // --- letter image cycle logic (simplified: pick random 1..6 -> random/X.jpg) ---
+    }
+    _letterTyping.timer = setTimeout(typeParagraph, 220);
+  }
+  window.showLetterPopup = showLetterPopup;
+
+  function closeLetterPopup() {
+    _letterTyping.stop = true;
+    clearTimeout(_letterTyping.timer);
+    stopLetterImageCycle();
+    const popup = $('letterPopup');
+    if (!popup) return;
+    popup.style.opacity = '0';
+    setTimeout(() => { hideEl('letterPopup'); popup.setAttribute('aria-hidden', 'true'); }, 420);
+  }
+  window.closeLetterPopup = closeLetterPopup;
+
+  // --- letter image cycle: random 1..6 (random/X.jpg), avoid same twice in a row ---
   let _letterImageInterval = null;
   let _letterImageTimeout = null;
-  let _letterPrevIndex = null; // prevent same picture twice in a row
+  let _letterPrevIndex = null;
 
   function startLetterImageCycle() {
     stopLetterImageCycle();
-    const popupImg = document.getElementById('letterImageElem');
-    const popupWrap = document.getElementById('letterImagePopup');
+    const popupImg = $('letterImageElem');
+    const popupWrap = $('letterImagePopup');
     if (!popupWrap || !popupImg) return;
-
-    const displayMs = 2400; // how long the picture stays visible (ms) — made longer
+    const displayMs = 2600;
 
     function pickDifferentIndex() {
-      // pick a number 1..6 but avoid repeating the previous index
       let n = Math.floor(Math.random() * 6) + 1;
-      // try a few times to get a different number
       let attempts = 0;
-      while (n === _letterPrevIndex && attempts < 6) {
-        n = Math.floor(Math.random() * 6) + 1;
-        attempts++;
-      }
+      while (n === _letterPrevIndex && attempts < 8) { n = Math.floor(Math.random() * 6) + 1; attempts++; }
       _letterPrevIndex = n;
       return n;
     }
@@ -1491,16 +1250,11 @@ Precious A, Bestie ≽(•⩊ •マ≼`;
     function showOnce() {
       const n = pickDifferentIndex();
       const src = encodeURI(`random/${n}.jpg`);
-      // cross-fade
       popupImg.style.transition = popupImg.style.transition || 'opacity 180ms ease';
       popupImg.style.opacity = '0';
       setTimeout(() => {
         popupImg.onload = () => requestAnimationFrame(() => { popupImg.style.opacity = '1'; });
-        popupImg.onerror = () => {
-          console.warn('letter image failed to load:', src);
-          // prevent staying invisible
-          popupImg.style.opacity = '1';
-        };
+        popupImg.onerror = () => { console.warn('letter image failed to load:', src); popupImg.style.opacity = '1'; };
         popupImg.src = src;
         popupWrap.classList.add('show');
         popupWrap.setAttribute('aria-hidden', 'false');
@@ -1509,31 +1263,33 @@ Precious A, Bestie ≽(•⩊ •マ≼`;
           popupWrap.classList.remove('show');
           popupWrap.setAttribute('aria-hidden', 'true');
         }, displayMs);
-      }, 180);
+      }, 160);
     }
 
-    // immediate first show, then every (displayMs + small gap) ms
     showOnce();
-    _letterImageInterval = setInterval(showOnce, displayMs + 600);
+    _letterImageInterval = setInterval(showOnce, displayMs + 700);
   }
 
   function stopLetterImageCycle() {
-    clearInterval(_letterImageInterval);
-    _letterImageInterval = null;
-    clearTimeout(_letterImageTimeout);
-    _letterImageTimeout = null;
-    const popupWrap = document.getElementById('letterImagePopup');
-    if (popupWrap) {
-      popupWrap.classList.remove('show');
-      popupWrap.setAttribute('aria-hidden', 'true');
-    }
+    clearInterval(_letterImageInterval); _letterImageInterval = null;
+    clearTimeout(_letterImageTimeout); _letterImageTimeout = null;
+    const popupWrap = $('letterImagePopup'); if (popupWrap) { popupWrap.classList.remove('show'); popupWrap.setAttribute('aria-hidden', 'true'); }
   }
-  // --- end letter image cycle logic ---
+
+  // expose stop function (used when closing)
+  window.stopLetterImageCycle = stopLetterImageCycle;
+
+  // Expose a few functions for markup onclicks that remain in the HTML
+  window.closeCakePopup = closeCakePopup;
+  window.showCakePopup = showCakePopup;
+  window.closeGiftPopup = closeGiftPopup;
+})();
 </script>
 
 </body>
 
 </html>
+
 
 
 
